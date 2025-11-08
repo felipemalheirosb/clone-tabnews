@@ -1,11 +1,17 @@
+import { useState, useEffect } from "react";
 
-import { useState } from "react";
+export default function Home() {
+  const [audio, setAudio] = useState(null);
 
-function Home() {
-  const [audio] = useState(new Audio("/som.mp3"));
+  useEffect(() => {
+    // Evita erro "window is not defined" no build
+    if (typeof window !== "undefined") {
+      setAudio(new Audio("/som.mp3"));
+    }
+  }, []);
 
   const tocarSom = () => {
-    audio.play();
+    audio?.play();
   };
 
   return (
@@ -15,5 +21,3 @@ function Home() {
     </div>
   );
 }
-
-export default Home;
